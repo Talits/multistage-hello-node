@@ -146,6 +146,7 @@ objects:
       description: Define como criar o aplicativo
     name: ${NAME}-build
   spec:
+    completionDeadlineSeconds: 1800
     output:
       to:
         kind: ImageStreamTag
@@ -175,6 +176,7 @@ objects:
       description: Define como construir o aplicativo
     name: ${NAME}
   spec:
+    completionDeadlineSeconds: 1800
     output:
       to:
         kind: ImageStreamTag
