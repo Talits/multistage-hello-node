@@ -30,12 +30,7 @@ parameters:
   displayName: URL Repositório GIT
   name: SOURCE_REPOSITORY_URL
   required: true
-  value: https://github.com/Talits/node-docker-pkg-demo.git
-- description: Defina o secret de acesso ao repositório GIT
-  displayName: Defina o secret de acesso ao repositório GIT
-  name: SOURCE_SECRET
-  required: true
-  value: github-secret
+  value: https://github.com/Talits/multistage-hello-node.git
 - description: Quantidade máxima de memória que o contêiner node pode usar.
   displayName: Limite de memória
   name: MEMORY_LIMIT
@@ -44,7 +39,7 @@ parameters:
 - description: Defina um nome de branch, tag ou outra referência de seu repositório se você não estão usando a branch padrão.
   displayName: Branch
   name: SOURCE_REPOSITORY_REF
-  value: develop
+  value: master
 - description: Defina o caminho relativo ao seu projeto se ele não estiver na raiz do seu repositório.
   displayName: Diretório relativo
   name: CONTEXT_DIR
@@ -83,8 +78,6 @@ objects:
       git:
         uri: ${SOURCE_REPOSITORY_URL}
         ref: ${SOURCE_REPOSITORY_REF}
-      sourceSecret:
-        name: github-secret
     strategy:
       jenkinsPipelineStrategy:
         jenkinsfilePath: Jenkinsfile
@@ -159,8 +152,6 @@ objects:
       git:
         uri: ${SOURCE_REPOSITORY_URL}
         ref: ${SOURCE_REPOSITORY_REF}
-      sourceSecret:
-        name: github-secret
     strategy:
       type: Docker
       dockerStrategy:
@@ -189,9 +180,7 @@ objects:
     source:
       git:
         uri: ${SOURCE_REPOSITORY_URL}
-        ref: ${SOURCE_REPOSITORY_REF}
-      sourceSecret:
-        name: github-secret  
+        ref: ${SOURCE_REPOSITORY_REF}  
     strategy:
       type: Docker
       dockerStrategy:
