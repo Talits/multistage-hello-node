@@ -1,6 +1,6 @@
 try {
     timeout(time: 20, unit: 'MINUTES') {
-        node('') {
+        node('nodejs') {
             
             stage('artifact-build') {
                 openshiftBuild(buildConfig: 'nodejs-build', showBuildLogs: 'true')
