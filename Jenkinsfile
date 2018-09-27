@@ -2,6 +2,9 @@ try {
     timeout(time: 20, unit: 'MINUTES') {
         node('nodejs') {
             
+         ansiColor('xterm') {
+         timestamps {
+            
             stage('artifact-build') {
                 openshiftBuild(buildConfig: 'nodejs-build', showBuildLogs: 'true', waitTime: 180000)
             }
@@ -28,8 +31,10 @@ try {
                 openshiftDeploy(namespace:'outro',deploymentConfig: 'nodejs', waitTime: 180000)
                 openshiftVerifyDeployment(namespace:'outro', depCfg: 'nodejs',replicaCount: 1,  waitTime: 180000 )
             } 
+         }
+         }
         }
-    }
+    }   
 } catch (err) {
     echo "in catch block"
     echo "Caught: ${err}"
