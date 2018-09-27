@@ -21,11 +21,9 @@ parameters:
 - description: O nome do host exposto que irá rotear para o serviço node (Container)
   displayName: URL do Container
   name: CONTAINER_DOMAIN
-  value: node-talita-teste.127.0.0.1.nip.io 
 - description: O nome do host exposto que irá rotear para o serviço node (App)
   displayName: URL do APP
   name: APPLICATION_DOMAIN
-  value: nodejs-talita-teste.127.0.0.1.nip.io 
 - description: O URL do repositório com o código-fonte da API.
   displayName: URL Repositório GIT
   name: SOURCE_REPOSITORY_URL
@@ -106,7 +104,9 @@ objects:
 - apiVersion: v1
   kind: Route
   metadata:
-    name: ${NAME}-app
+  annotations:
+    template.openshift.io/expose-uri: http://{.spec.host}{.spec.path}
+  name: ${NAME}-app
   spec:
     host: ${APPLICATION_DOMAIN}
     port:
@@ -115,6 +115,8 @@ objects:
       kind: Service
       name: ${NAME}
 - apiVersion: v1
+  annotations:
+    template.openshift.io/expose-uri: http://{.spec.host}{.spec.path}
   kind: Route
   metadata:
     name: ${NAME}-pod
