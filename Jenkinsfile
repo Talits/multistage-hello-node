@@ -11,7 +11,7 @@ try {
             }
 
             stage('deploy') {
-                openshiftDeploy(deploymentConfig: 'nodejs')
+                openshiftDeploy(deploymentConfig: 'nodejs', waitTime: 180000)
                 openshiftVerifyDeployment(depCfg: 'nodejs',replicaCount: 1,  waitTime: 180000)
 
             }
@@ -25,7 +25,7 @@ try {
             }
 
             stage('deploy-promotion') {
-                openshiftDeploy(namespace:'outro',deploymentConfig: 'nodejs')
+                openshiftDeploy(namespace:'outro',deploymentConfig: 'nodejs', waitTime: 180000)
                 openshiftVerifyDeployment(namespace:'outro', depCfg: 'nodejs',replicaCount: 1,  waitTime: 180000 )
             } 
         }
