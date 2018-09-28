@@ -4,7 +4,11 @@ try {
             
          ansiColor('xterm') {
          timestamps {
-            
+             
+            stage('artifact-build') {
+                openshiftBuild(buildConfig: 'nodejs-build', showBuildLogs: 'true', waitTime: 18000000)
+            }
+
             
             stage('image-build') {
                 openshiftBuild(buildConfig: 'nodejs', showBuildLogs: 'true',  waitTime: 18000000)
