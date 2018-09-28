@@ -5,9 +5,6 @@ try {
          ansiColor('xterm') {
          timestamps {
             
-            stage('artifact-build') {
-                openshiftBuild(buildConfig: 'nodejs-build', showBuildLogs: 'true', waitTime: 18000000)
-            }
             
             stage('image-build') {
                 openshiftBuild(buildConfig: 'nodejs', showBuildLogs: 'true',  waitTime: 18000000)
@@ -19,18 +16,6 @@ try {
 
             }
             
-            stage('artifact-build-promotion') {
-                openshiftBuild(namespace:'outro', buildConfig: 'nodejs-build', showBuildLogs: 'true' ,  waitTime: 18000000)
-            }
-            
-            stage('image-build-promotion') {
-                openshiftBuild(namespace:'outro',buildConfig: 'nodejs', showBuildLogs: 'true',  waitTime: 18000000)
-            }
-
-            stage('deploy-promotion') {
-                openshiftDeploy(namespace:'outro',deploymentConfig: 'nodejs', waitTime: 18000000)
-                openshiftVerifyDeployment(namespace:'outro', depCfg: 'nodejs',replicaCount: 1,  waitTime: 18000000 )
-            } 
          }
          }
         }
